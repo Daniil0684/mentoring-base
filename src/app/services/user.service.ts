@@ -7,7 +7,6 @@ import { IUserRole } from "../interfaces/user-role";
 })
 export class UserService {
   private readonly userSubject$ = new BehaviorSubject<IUserRole | null>(null);
-  public readonly user$ = this.userSubject$.asObservable(); // если он нигде не используется зачем он тут нужен вообще?
 
   private user: IUserRole = {
     name: 'Ильнур',
@@ -30,9 +29,4 @@ export class UserService {
   get isAdmin() {
     return this.userSubject$.value?.isAdmin;
   }
-
-  // get isLogged() {
-  //   return this.userSubject$.value !== null;
-  // } ни где не используется, зачем он нужен ?
-
 }

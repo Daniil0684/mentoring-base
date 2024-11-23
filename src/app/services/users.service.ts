@@ -21,7 +21,7 @@ export class UsersService {
       this.usersApiService.getUsers().subscribe((data: IUser[]) => {
         this.updateUsers(data)
       })
-    };
+    }
   }
 
   updateUsers(users: IUser[]) {

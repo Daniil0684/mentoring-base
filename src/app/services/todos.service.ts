@@ -19,13 +19,6 @@ export class TodosService {
         this.todosApiService.getTodos().subscribe((data: ITodo[]) => {
               this.updatedTodos(data.slice(0,10))
             })
-    // if (localStorageTodos && localStorageTodos.length > 0) {
-    //   this.todosSubject$.next(localStorageTodos)
-    // } else {
-    //   this.todosApiService.getTodos().subscribe((data: ITodo[]) => {
-    //     this.updatedTodos(data.slice(0,10))
-    //   })
-    // }
   }
 
   updatedTodos(todos: ITodo[]) {
