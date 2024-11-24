@@ -1,14 +1,14 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AsyncPipe, NgForOf, NgIf } from "@angular/common";
-import { UsersApiService } from "../users-api.service";
 import { UserCardComponent } from "./user-card/user-card.component";
-import { UsersService } from "../users.service";
 import { MatIcon } from "@angular/material/icon";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { MatMiniFabButton } from "@angular/material/button";
 import { CreateUserDialogComponent } from "./create-user-dialog/create-user-dialog.component";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { IUser } from "../interfaces/interfaces";
+import { UsersApiService } from "../services/users-api.service";
+import { UsersService } from "../services/users.service";
 
 @Component({
   selector: 'app-users-list',

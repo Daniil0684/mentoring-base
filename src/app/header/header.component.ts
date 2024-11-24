@@ -4,10 +4,10 @@ import { RouterLink, RouterOutlet } from "@angular/router";
 import { YellowDirective } from "../directives/yellow.directive";
 import { MatIcon } from "@angular/material/icon";
 import { MatTooltipModule, TooltipPosition } from "@angular/material/tooltip";
-import { FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { AuthComponent } from "../auth/auth.component";
-import { UserService } from "../user.service";
+import { UserService } from "../services/user.service";
+
 
 const aboutCompanyFn = (text: string) => text;
 
