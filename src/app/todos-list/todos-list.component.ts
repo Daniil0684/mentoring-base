@@ -37,7 +37,7 @@ export class TodosListComponent {
   public readonly todos$ = this.store.select(selectTodos);
 
   constructor() {
-    this.todosApiService.getTodos().subscribe((response: any) => {
+    this.todosApiService.getTodos().subscribe((response: ITodo[]) => {
         this.store.dispatch(TodosActions.set({ todos: response }))
       })
   }

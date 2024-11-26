@@ -43,7 +43,7 @@ export class UsersListComponent {
 
   constructor() {
     this.usersApiService.getUsers().subscribe(
-      (response: any) => {
+      (response: IUser[]) => {
         // this.usersService.setUsers(response);
         this.store.dispatch(UsersActions.set({users: response}))
       }
