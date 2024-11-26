@@ -8,7 +8,6 @@ import { CreateUserDialogComponent } from "./create-user-dialog/create-user-dial
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { IUser } from "../interfaces/interfaces";
 import { UsersApiService } from "../services/users-api.service";
-// import { UsersService } from "../services/users.service";
 import { map, take, tap } from "rxjs";
 import { Store } from "@ngrx/store";
 import { UsersActions } from "./store/users.actions";
@@ -32,8 +31,6 @@ import { selectUsers } from "./store/users.selectors";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UsersListComponent {
-  // user!: User
-
   readonly usersApiService = inject(UsersApiService);
   // readonly usersService = inject(UsersService);
   readonly dialog = inject(MatDialog);

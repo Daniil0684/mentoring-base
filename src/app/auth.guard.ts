@@ -1,15 +1,22 @@
 import { CanActivateFn, Router } from '@angular/router';
 import { inject } from "@angular/core";
-import { UserService } from "./services/user.service";
+// import { UserService } from "./services/user.service";
+import { Store } from "@ngrx/store";
+import { selectIsAdmin } from "./users-list/store/users.selectors";
+import { map, take } from "rxjs";
 
 
 export const authGuard: CanActivateFn = () => {
-  const userService = inject(UserService);
+  const store = inject(Store)
   const router = inject(Router)
-  if(userService.isAdmin) {
-    return true;
-  } else {
-    router.navigate(['users'])
-    return false
-  }
+  return store.select(selectIsAdmin).pipe(
+    take(1),
+    map((isAdmin) => {
+      if (isAdmin) {
+        return true;
+      } else {
+        return router.createUrlTree(['users']);
+      }
+    })
+  )
 };

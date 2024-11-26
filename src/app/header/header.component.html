@@ -18,7 +18,7 @@
         <button class="btn-menu btn-admin-user" (click)="changeMenuText()">Изменить текст</button>
         <div class="admin-user">
           <button class="btn-menu btn-admin-user" routerLink="users">Пользователи</button>
-          <button class="btn-menu btn-admin-user" routerLink="admin" *ngIf="userService.isAdmin === true">Админка</button>
+          <button class="btn-menu btn-admin-user" routerLink="admin" *ngIf="isAdmin$ | async">Админка</button>
         </div>
         <button class="btn-menu btn-admin-user" routerLink="todos">Задачи</button>
       </div>

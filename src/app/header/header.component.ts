@@ -1,13 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { DatePipe, NgForOf, NgIf } from "@angular/common";
+import { AsyncPipe, DatePipe, NgForOf, NgIf } from "@angular/common";
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { YellowDirective } from "../directives/yellow.directive";
 import { MatIcon } from "@angular/material/icon";
 import { MatTooltipModule, TooltipPosition } from "@angular/material/tooltip";
-import { FormControl } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { AuthComponent } from "../auth/auth.component";
-import { UserService } from "../services/user.service";
+// import { UserService } from "../services/user.service";
+import { Store } from "@ngrx/store";
+import { UsersActions } from "../users-list/store/users.actions";
+import { IUserRole } from "../interfaces/interfaces"
+import { Observable } from "rxjs";
+import { selectIsAdmin } from "../users-list/store/users.selectors";
 
 const aboutCompanyFn = (text: string) => text;
 
@@ -32,6 +36,7 @@ const upperCaseMenuItems = menuItems.map(
     YellowDirective,
     MatIcon,
     MatTooltipModule,
+    AsyncPipe,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
@@ -44,9 +49,15 @@ export class HeaderComponent {
   readonly aboutCompany = aboutCompany;
   readonly today: Date = new Date()
   private readonly dialog = inject(MatDialog)
-  protected readonly userService = inject(UserService)
+  // protected readonly userService = inject(UserService)
+  private readonly store = inject(Store)
   menuItems = upperCaseMenuItems;
   isLowerCase = true;
+  isAdmin$: Observable<boolean>;
+
+  constructor() {
+    this.isAdmin$ = this.store.select(selectIsAdmin)
+  }
 
   changeMenuText() {
     this.menuItems = upperCaseMenuItems.map(
@@ -63,14 +74,17 @@ export class HeaderComponent {
 
     dialogRef.afterClosed().subscribe((result: string) => {
       if (result === 'admin') {
-        this.userService.loginAsAdmin()
+        // this.userService.loginAsAdmin()
+        this.store.dispatch(UsersActions.loginAsAdmin({ user: { name: 'Admin', email: 'admin@example.com', isAdmin: true }}))
       } else if (result === 'user') {
-        this.userService.loginAsUser()
+        // this.userService.loginAsUser()
+        this.store.dispatch(UsersActions.loginAsUser({ user: { name: 'Admin', email: 'admin@example.com', isAdmin: false }}))
       } else return
     });
   }
 
   public logout() {
-    this.userService.logout()
+    // this.userService.logout()
+    this.store.dispatch(UsersActions.logout({ user: null}))
   }
 }
